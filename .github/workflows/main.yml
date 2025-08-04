@@ -15,9 +15,12 @@ jobs:
 
     - name: Set Docker image tag (using Git commit SHA)
       run: echo "IMAGE_TAG=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
-
     - name: Build and tag Docker image
-      run: docker build . --file Dockerfile --tag kishoredk/sample-app:${{ env.IMAGE_TAG }}
+      run: |
+             docker build --file day-1-task/sample-nodejs-app/Dockerfile \
+                --tag kishoredk/sample-app:${{ env.IMAGE_TAG }} \
+                 day-1-task/sample-nodejs-app
+
 
     - name: Push Docker image
       run: docker push kishoredk/sample-app:${{ env.IMAGE_TAG }}
