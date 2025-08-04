@@ -17,8 +17,9 @@ jobs:
       run: echo "IMAGE_TAG=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
 
     - name: Build and tag Docker image
-      run: docker build --f day-1-task/sample-nodejs-app/Dockerfile --tag kishoredk/sample-app:${{ env.IMAGE_TAG }} day-1-task/sample-nodejs-app/
-
+      run: |
+          cd day-1-task/sample-nodejs-app
+          docker build -t kishoredk/sample-app:${{ env.IMAGE_TAG }} .
     - name: Push Docker image
       run: docker push kishoredk/sample-app:${{ env.IMAGE_TAG }}
 
