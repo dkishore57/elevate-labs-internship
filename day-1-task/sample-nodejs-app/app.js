@@ -7,7 +7,7 @@ const app = express();
 const port = 3000;
 
 const db = mysql.createConnection({
-  host: 'localhost',
+  host: 'host.docker.internal',
   user: 'root',
   password: 'hiokjb.py', // replace with your password
   database: 'login_db'
