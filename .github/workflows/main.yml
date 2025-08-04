@@ -19,7 +19,7 @@ jobs:
       run: |
              docker build --file day-1-task/sample-nodejs-app/Dockerfile \
                 --tag kishoredk/sample-app:${{ env.IMAGE_TAG }} \
-                 day-1-task/sample-nodejs-app
+                  day-1-task/sample-nodejs-app
 
 
     - name: Push Docker image
