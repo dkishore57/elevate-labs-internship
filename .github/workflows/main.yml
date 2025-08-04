@@ -1,0 +1,25 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Log in to Docker Hub
+      run: echo "${{secrets.DOCKER_PASSWORD}}" | docker login -u "kishoredk" --password-stdin
+
+    - name: Set Docker image tag (using Git commit SHA)
+      run: echo "IMAGE_TAG=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
+
+    - name: Build and tag Docker image
+      run: docker build . --file Dockerfile --tag kishoredk/sample-app:${{ env.IMAGE_TAG }}
+
+    - name: Push Docker image
+      run: docker push kishoredk/sample-app:${{ env.IMAGE_TAG }}
+
+   
